@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BW Field Report">
+    <meta name="theme-color" content="#DA6F1A">
+    <title>Bristol Water - Field Report</title>
+    
+    <!-- jsPDF for PDF generation - loaded async so it doesn't block the app -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" async defer></script>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkJyaXN0b2wgV2F0ZXIgRmllbGQgUmVwb3J0IiwKICAic2hvcnRfbmFtZSI6ICJCV1JlcG9ydCIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjRjlGOUY5IiwKICAidGhlbWVfY29sb3IiOiAiI0RBNkYxQSIsCiAgImljb25zIjogW3sKICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLDxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCc+PHJlY3Qgd2lkdGg9JzEwMCcgaGVpZ2h0PScxMDAnIGZpbGw9JyUyM0RBNkYxQScvPjx0ZXh0IHg9JzUwJyB5PSc2NScgZm9udC1zaXplPSc1MCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nd2hpdGUnPkJXPC90ZXh0Pjwvc3ZnPiIsCiAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogIH1dCn0=">
+    
+    <!-- iOS icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23DA6F1A'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>BW</text></svg>">
+    
+    <style>
+        :root {
+            --orange: #DA6F1A;
+            --charcoal: #4D4D4D;
+            --light: #F9F9F9;
+            --border: #E0E0E0;
+            --green: #4CAF50;
+            --red: #E53935;
+            --amber: #FF9800;
+        }
+        
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--light);
+            color: var(--charcoal);
+            min-height: 100vh;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        /* Offline indicator */
+        .offline-banner {
+            display: none;
+            background: var(--amber);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .offline-banner.show {
+            display: block;
+        }
+        
+        .sync-banner {
+            display: none;
+            background: var(--green);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .sync-banner.show {
+            display: block;
+            animation: fadeOut 3s forwards;
+        }
+        
+        @keyframes fadeOut {
+            0%, 80% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+        
+        /* Header */
+        .header {
+            background: var(--orange);
+            color: white;
+            padding: 15px 20px;
+            padding-top: calc(15px + env(safe-area-inset-top));
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        
+        .header-sub {
+            font-size: 0.85em;
+            opacity: 0.9;
+            margin-top: 3px;
+        }
+        
+        .pending-badge {
+            background: white;
+            color: var(--orange);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .pending-badge.synced {
+            background: var(--green);
+            color: white;
+        }
+        
+        /* Team selector */
+        .team-select-screen {
+            padding: 30px 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .team-select-screen h2 {
+            color: var(--orange);
+            margin-bottom: 20px;
+        }
+        
+        .team-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .team-btn:hover, .team-btn:active {
+            border-color: var(--orange);
+            background: #FFF8F3;
+        }
+        
+        .team-btn strong {
+            display: block;
+            font-size: 1.1em;
+            color: var(--charcoal);
+        }
+        
+        .team-btn span {
+            font-size: 0.9em;
+            color: #888;
+        }
+        
+        /* Day tabs */
+        .day-tabs {
+            display: flex;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 70px;
+            z-index: 90;
+        }
+        
+        .day-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 3px solid transparent;
+            color: #888;
+            transition: all 0.2s;
+        }
+        
+        .day-tab.active {
+            color: var(--orange);
+            border-bottom-color: var(--orange);
+            background: #FFF8F3;
+        }
+        
+        /* Progress */
+        .progress-section {
+            padding: 12px 20px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+            color: #666;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--orange);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+        
+        /* Sites */
+        .sites-container {
+            padding: 15px;
+        }
+        
+        .site-card {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .site-header {
+            background: var(--charcoal);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .site-header.complete {
+            background: var(--green);
+        }
+        
+        .site-header h3 {
+            margin: 0;
+            font-size: 1.05em;
+        }
+        
+        .site-time {
+            font-size: 0.85em;
+            opacity: 0.8;
+            margin-top: 3px;
+        }
+        
+        .site-status-badge {
+            font-size: 0.75em;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.2);
+            white-space: nowrap;
+        }
+        
+        .site-header.complete .site-status-badge {
+            background: white;
+            color: var(--green);
+        }
+        
+        .site-content {
+            display: none;
+            padding: 15px;
+        }
+        
+        .site-content.expanded {
+            display: block;
+        }
+        
+        .site-info {
+            background: var(--light);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .site-info p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+        
+        /* Assets */
+        .asset-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        
+        .asset-header {
+            background: var(--light);
+            padding: 12px;
+            font-weight: 600;
+            font-size: 0.9em;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .asset-body {
+            padding: 12px;
+        }
+        
+        /* Photo upload */
+        .photo-area {
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #FAFAFA;
+        }
+        
+        .photo-area:active {
+            background: #F0F0F0;
+        }
+        
+        .photo-area.has-photo {
+            border-style: solid;
+            border-color: var(--green);
+            padding: 8px;
+            background: white;
+        }
+        
+        .photo-area img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+        }
+        
+        .photo-area input {
+            display: none;
+        }
+        
+        .photo-icon {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+        
+        .photo-text {
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        .photo-time {
+            font-size: 0.75em;
+            color: var(--green);
+            margin-top: 8px;
+        }
+        
+        /* Disinfection checkbox */
+        .disinfect-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #E8F5E9;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .disinfect-check.checked {
+            background: var(--green);
+            color: white;
+        }
+        
+        .disinfect-check input {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .disinfect-check label {
+            flex: 1;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+        
+        /* Unable to complete */
+        .unable-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px solid var(--red);
+            color: var(--red);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+        
+        .unable-btn.active {
+            background: var(--red);
+            color: white;
+        }
+        
+        .unable-reason {
+            display: none;
+            margin-bottom: 12px;
+        }
+        
+        .unable-reason.show {
+            display: block;
+        }
+        
+        .unable-reason textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--red);
+            border-radius: 8px;
+            font-size: 14px;
+            resize: none;
+            min-height: 60px;
+            background: #FFEBEE;
+        }
+        
+        .unable-reason textarea:focus {
+            outline: none;
+        }
+        
+        /* Form elements */
+        .form-select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 12px;
+            background: white;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            resize: none;
+            min-height: 80px;
+        }
+        
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+        
+        /* Site notes */
+        .site-notes-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .site-notes-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        
+        /* Complete button */
+        .complete-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.2s;
+            background: var(--orange);
+            color: white;
+        }
+        
+        .complete-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .complete-btn.completed {
+            background: var(--green);
+        }
+        
+        /* Summary section */
+        .summary-section {
+            margin: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .summary-section h2 {
+            margin: 0 0 15px 0;
+            color: var(--orange);
+            font-size: 1.1em;
+        }
+        
+        .summary-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            resize: none;
+            min-height: 150px;
+            margin-bottom: 15px;
+        }
+        
+        .summary-textarea:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+        
+        .export-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--charcoal);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .export-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* Switch team button */
+        .switch-team-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            cursor: pointer;
+        }
+        
+        /* Timestamp */
+        .timestamp {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 10px;
+        }
+        
+        /* Install prompt */
+        .install-prompt {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--charcoal);
+            color: white;
+            padding: 15px 20px;
+            padding-bottom: calc(15px + env(safe-area-inset-bottom));
+            z-index: 200;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .install-prompt.show {
+            display: block;
+        }
+        
+        .install-prompt p {
+            margin: 0 0 12px 0;
+            font-size: 0.95em;
+        }
+        
+        .install-prompt-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .install-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .install-btn.primary {
+            background: var(--orange);
+            color: white;
+        }
+        
+        .install-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        /* Chevron icon */
+        .chevron {
+            transition: transform 0.2s;
+        }
+        
+        .chevron.open {
+            transform: rotate(180deg);
+        }
+        
+        /* Hide when not selected */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Safe area for fixed elements */
+        .bottom-spacer {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Offline Banner -->
+    <div class="offline-banner" id="offlineBanner">
+        📴 You're offline - data saves locally and syncs when connected
+    </div>
+    
+    <!-- Sync Banner -->
+    <div class="sync-banner" id="syncBanner">
+        ✓ Data synced successfully
+    </div>
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>Bristol Water - Q1 2026</h1>
+                <div class="header-sub" id="teamName">Field Report</div>
+            </div>
+            <div id="headerRight">
+                <span class="pending-badge" id="syncStatus">Select Team</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Team Selection Screen -->
+    <div class="team-select-screen" id="teamSelectScreen">
+        <h2>👷 Select Your Team</h2>
+        <p style="color: #666; margin-bottom: 25px;">Choose your team to load your sites and start recording.</p>
+        
+        <button class="team-btn" onclick="selectTeam('offley')" type="button">
+            <strong>Tom's Route</strong>
+            <span>6 sites • Risk Assessments • Depart 05:39</span>
+        </button>
+        
+        <button class="team-btn" onclick="selectTeam('winchester')" type="button">
+            <strong>Ben's Route</strong>
+            <span>10 sites • Eastern route • Depart 06:45</span>
+        </button>
+        
+        <button class="team-btn" onclick="selectTeam('wrington')" type="button">
+            <strong>Sam's Route</strong>
+            <span>9 sites • Western route • Depart 08:55</span>
+        </button>
+        
+        <div style="margin-top: 30px; padding: 15px; background: #FFF3E0; border-radius: 10px; font-size: 0.9em;">
+            <strong>📱 Add to Home Screen</strong><br>
+            For the best offline experience, tap Share → Add to Home Screen
+        </div>
+    </div>
+    
+    <!-- Main App Screen -->
+    <div id="mainScreen" class="hidden">
+        <!-- Day Tabs -->
+        <div class="day-tabs">
+            <button class="day-tab active" id="day1Tab" onclick="switchDay(1)">📅 Day 1</button>
+            <button class="day-tab" id="day2Tab" onclick="switchDay(2)">📅 Day 2</button>
+        </div>
+        
+        <!-- Progress -->
+        <div class="progress-section">
+            <div class="progress-text">
+                <span id="progressText">0 of 0 sites complete</span>
+                <span id="lastSaved"></span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <!-- Sites Container -->
+        <div class="sites-container" id="sitesContainer"></div>
+        
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <h2>📝 End of Day Summary</h2>
+            <textarea class="summary-textarea" id="dailySummary" 
+                placeholder="Write up your notes for the day...&#10;&#10;Include any issues, observations, follow-up actions, or anything that needs reporting."></textarea>
+            <button class="export-btn" onclick="generateReport()">
+                📄 Generate &amp; Download Report
+            </button>
+        </div>
+        
+        <div class="bottom-spacer"></div>
+    </div>
+    
+    <!-- Install Prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <p><strong>📲 Install this app</strong> for offline access - works without signal!</p>
+        <div class="install-prompt-buttons">
+            <button class="install-btn secondary" onclick="dismissInstall()">Later</button>
+            <button class="install-btn primary" onclick="installApp()">Install</button>
+        </div>
+    </div>
+
+    <script>
+        // =====================================================
+        // DATA
+        // =====================================================
+        const teamData = {
+            offley: {
+                name: "Tom's Route",
+                days: {
+                    1: [
+                        { name: "Littleton TW", work: "Disinfection + RA", arrive: "08:30", assets: [
+                            "Domestic Shower - Main Building First Floor",
+                            "MF Emergency Shower - Phos Delivery Area (External)",
+                            "MF Emergency Shower - Phos Delivery Area (Internal)",
+                            "MF Emergency Shower/Eyebath - Main Building GF (Outside Caustic Room) [#FS12382]",
+                            "MF Emergency Eyebath - Main Building GF Caustic Room [#FS62743]"
+                        ]},
+                        { name: "Lockleaze PS", work: "Risk Assessment Only", arrive: "10:40", assets: [
+                            "TF Emergency Shower/Eyebath - Internal [#59815]"
+                        ]},
+                        { name: "Cheddar Depot", work: "Disinfection + RA", arrive: "12:33", assets: [
+                            "Domestic Shower"
+                        ]},
+                        { name: "Cheddar TW", work: "Device Maint + Disinfection + RA", arrive: "14:18", assets: [
+                            "MF Emergency Shower - External",
+                            "MF Emergency Eyebath - Pump Hall (Upper) [#5629]",
+                            "MF Emergency Eyebath - Pump Hall (Lower) [#63946]"
+                        ]}
+                    ],
+                    2: [
+                        { name: "Rowberrow", work: "Device Maintenance Only", arrive: "08:31", assets: [] },
+                        { name: "Banwell TW", work: "Disinfection + RA", arrive: "09:09", assets: [
+                            "Domestic Shower [#49923]",
+                            "MF Emergency Eyebath - Main Building Internal [#1784]",
+                            "MF Emergency Shower - Main Building External [#1782]",
+                            "MF Emergency Eyebath - Membrane Building External [#50599]",
+                            "TF Emergency Shower/Eyebath - PACL Delivery Point - RHS [#50632]",
+                            "TF Emergency Shower/Eyebath - Sulphuric Acid Delivery Point - Rear Ext [#50912]",
+                            "TF Emergency Shower - Membrane Building External [#1783]",
+                            "TF Emergency Shower/Eyebath - Membrane Building Internal [#23432/23435]"
+                        ]}
+                    ]
+                }
+            },
+            winchester: {
+                name: "Ben's Route",
+                days: {
+                    1: [
+                        { name: "Frome Town TW", work: "Disinfection", arrive: "08:30", assets: [
+                            "MF Emergency Eyebath - Hypo Shed [#85575]",
+                            "MF Emergency Shower - Crypto Building Rear External [#24134]",
+                            "TF Emergency Shower/Eyebath - Membrane Building Internal [#24116]"
+                        ]},
+                        { name: "Maesbury", work: "Device Maint + Disinfection", arrive: "09:45", assets: [
+                            "MF Emergency Eyebath - Internal",
+                            "MF Emergency Shower - External"
+                        ]},
+                        { name: "Stowey TW", work: "Disinfection", arrive: "11:25", assets: [
+                            "Domestic Shower",
+                            "MF Emergency Eyebath - Sodium Hydroxide Dosing Kiosk Internal [#46023]",
+                            "MF Emergency Eyebath - ECL Building Internal",
+                            "MF Emergency Shower/Eyebath - UV Building External",
+                            "TF Emergency Shower/Eyebath - UV Building External (Fenced Area)",
+                            "TF Emergency Shower/Eyebath - External Rear [#86350]",
+                            "TF Emergency Shower/Eyebath - Sodium Hydroxide Dosing Kiosk Internal"
+                        ]},
+                        { name: "Chew Stoke PS", work: "Device Maintenance Only", arrive: "12:15", assets: [] },
+                        { name: "Head Office", work: "Disinfection", arrive: "13:00", assets: [
+                            "Domestic Shower 1 (GF - Shower Area)",
+                            "Domestic Shower 2 (GF - Shower Area)",
+                            "Domestic Shower 3 (GF - Shower Area)",
+                            "Domestic Shower 4 (GF - Shower Area)",
+                            "Domestic Shower (GF - Shower Area - Disabled Bathroom)",
+                            "Domestic Shower (GF - Control Room)"
+                        ]}
+                    ],
+                    2: [
+                        { name: "Victoria PS", work: "Disinfection", arrive: "08:57", assets: [
+                            "MF Emergency Shower",
+                            "MF Emergency Eyebath"
+                        ]},
+                        { name: "Chase Res", work: "Device Maint + Disinfection", arrive: "09:51", assets: [
+                            "MF Emergency Eyebath - External",
+                            "MF Emergency Shower - External"
+                        ]},
+                        { name: "Kingswood", work: "Disinfection", arrive: "11:06", assets: [
+                            "Domestic Shower - Main Building Ground Floor"
+                        ]},
+                        { name: "Alderley", work: "Disinfection", arrive: "12:20", assets: [
+                            "MF Emergency Eyebath - Electro Chlorination Kiosk Internal",
+                            "TF Emergency Shower/Eyebath (External) [#107362]",
+                            "TF Emergency Shower/Eyebath - Membrane Building Internal [#59279/23028]"
+                        ]},
+                        { name: "Purton TW", work: "Disinfection", arrive: "13:25", assets: [
+                            "Domestic Shower - Main Building Ground Floor",
+                            "Domestic Shower - Main Building First Floor",
+                            "MF Emergency Eyebath - Main Hall Ground Floor [#63228]",
+                            "TF Emergency Shower - Main Hall Internal [#25371]",
+                            "MF Emergency Shower/Eyebath - Main Hall Lower Ground Floor [#22527]",
+                            "MF Emergency Eyebath (Handheld) - Main Hall Lower Ground Floor",
+                            "MF Emergency Eyebath - External Delivery Area Brine Dosing Kiosk A",
+                            "MF Emergency Eyebath - External Delivery Inlet Hypo Dosing Kiosk (K13) [#62715]",
+                            "TF Emergency Shower - Phos Acid Tank - External Rear",
+                            "MF Emergency Shower/Eyebath - Front Car Park External",
+                            "MF Emergency Eyebath (Handheld) - Front Car Park External",
+                            "MF Emergency Shower/Eyebath - Sand Filters Building Internal [#61669/61670]"
+                        ]}
+                    ]
+                }
+            },
+            wrington: {
+                name: "Sam's Route",
+                days: {
+                    1: [
+                        { name: "Chelvey TW", work: "Disinfection", arrive: "09:00", assets: [
+                            "MF Emergency Shower - ECL Building - External [#57680]",
+                            "MF Emergency Eyebath - ECL Building - Internal [#57684]",
+                            "TF Emergency Shower - ECL Building - Internal [#83617]",
+                            "TF Emergency Shower - Membrane Building - Internal [#68578/26356]"
+                        ]},
+                        { name: "Clevedon", work: "Disinfection", arrive: "09:56", assets: [
+                            "MF Emergency Shower - External",
+                            "TF Emergency Shower - Internal"
+                        ]},
+                        { name: "Dry Hill", work: "Disinfection", arrive: "10:51", assets: [
+                            "MF Emergency Eyebath - Internal [#41696]",
+                            "MF Emergency Shower - External [#41677]"
+                        ]},
+                        { name: "Barrow TW", work: "Disinfection", arrive: "11:57", assets: [
+                            "MF Emergency Shower Sodium Hydroxide Dosing Kiosk [#47990]",
+                            "MF Emergency Eyebath Sodium Hydroxide Dosing Kiosk [#47998]",
+                            "MF Emergency Shower/Eyebath Sodium Hydroxide Delivery Point",
+                            "Domestic Shower [#47574]",
+                            "MF Emergency Shower/Eyebath Sulphuric Acid Tank [#55515]",
+                            "MF Emergency Shower/Eyebath Internal PACL/Coag Building [#55174]",
+                            "TF Emergency Shower/Eyebath External PACL/Coag Building [#41757/55149]",
+                            "MF Emergency Shower/Eyebath Internal NSSS Building - Valve Room [#83139/83138]",
+                            "MF Emergency Shower High Lift Pump Hall - External",
+                            "MF Emergency Eyebath High Lift Pump Hall - Internal [#2101]"
+                        ]},
+                        { name: "Woodford Lodge", work: "Disinfection", arrive: "12:56", assets: [
+                            "Spray Tap - Restaurant Kitchen"
+                        ]}
+                    ],
+                    2: [
+                        { name: "Axbridge TW", work: "Device Maint + Disinfection", arrive: "08:36", assets: [
+                            "MF Emergency Eyebath - Treatment Room Shutter Door Internal",
+                            "MF Emergency Eyebath - Treatment Room Rear Wall Internal",
+                            "MF Emergency Eyebath - PACL Injection Point LHS External",
+                            "MF Emergency Eyebath - PACL Injection Point RHS External",
+                            "TF Emergency Shower/Eyebath - External Rear [#41761/81670]"
+                        ]},
+                        { name: "Cooks Corner", work: "Disinfection", arrive: "10:12", assets: [
+                            "MF Emergency Eyebath - Internal [#30048]",
+                            "MF Emergency Shower - External [#30051]"
+                        ]},
+                        { name: "Brent Knoll", work: "Disinfection", arrive: "11:24", assets: [
+                            "MF Emergency Eyebath - Internal",
+                            "MF Emergency Shower - External"
+                        ]},
+                        { name: "Avonmouth", work: "Disinfection", arrive: "12:53", assets: [
+                            "MF Emergency Eyebath"
+                        ]}
+                    ]
+                }
+            }
+        };
+
+        // =====================================================
+        // STATE
+        // =====================================================
+        let currentTeam = localStorage.getItem('bw_team') || '';
+        let currentDay = parseInt(localStorage.getItem('bw_day') || '1');
+        let siteData = {};
+        let expandedSites = {};
+        let isOnline = navigator.onLine;
+        let pendingSync = false;
+        let deferredPrompt = null;
+
+        // =====================================================
+        // INITIALIZATION
+        // =====================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check online status
+            updateOnlineStatus();
+            window.addEventListener('online', () => {
+                isOnline = true;
+                updateOnlineStatus();
+                syncData();
+            });
+            window.addEventListener('offline', () => {
+                isOnline = false;
+                updateOnlineStatus();
+            });
+
+            // Load saved team
+            if (currentTeam && teamData[currentTeam]) {
+                loadTeamData();
+                showMainScreen();
+            }
+
+            // PWA install prompt
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                if (!localStorage.getItem('bw_install_dismissed')) {
+                    document.getElementById('installPrompt').classList.add('show');
+                }
+            });
+        });
+
+        // =====================================================
+        // ONLINE/OFFLINE HANDLING
+        // =====================================================
+        function updateOnlineStatus() {
+            const banner = document.getElementById('offlineBanner');
+            const syncStatus = document.getElementById('syncStatus');
+            
+            if (isOnline) {
+                banner.classList.remove('show');
+                syncStatus.textContent = pendingSync ? 'Syncing...' : '✓ Synced';
+                syncStatus.classList.toggle('synced', !pendingSync);
+            } else {
+                banner.classList.add('show');
+                syncStatus.textContent = '📴 Offline';
+                syncStatus.classList.remove('synced');
+            }
+        }
+
+        // =====================================================
+        // DATA PERSISTENCE
+        // =====================================================
+        function saveLocal() {
+            const data = {
+                sites: siteData,
+                summaries: {
+                    1: document.getElementById('dailySummary')?.value || '',
+                    2: document.getElementById('dailySummary')?.value || ''
+                },
+                lastSaved: new Date().toISOString(),
+                team: currentTeam,
+                day: currentDay
+            };
+            
+            localStorage.setItem(`bw_data_${currentTeam}`, JSON.stringify(data));
+            localStorage.setItem('bw_team', currentTeam);
+            localStorage.setItem('bw_day', currentDay.toString());
+            
+            // Update last saved display
+            const lastSavedEl = document.getElementById('lastSaved');
+            if (lastSavedEl) {
+                lastSavedEl.textContent = 'Saved ' + new Date().toLocaleTimeString();
+            }
+            
+            pendingSync = true;
+            updateOnlineStatus();
+            
+            // Try to sync if online
+            if (isOnline) {
+                syncData();
+            }
+        }
+
+        function loadLocal() {
+            const saved = localStorage.getItem(`bw_data_${currentTeam}`);
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    siteData = data.sites || {};
+                    if (data.summaries && data.summaries[currentDay]) {
+                        const summaryEl = document.getElementById('dailySummary');
+                        if (summaryEl) summaryEl.value = data.summaries[currentDay];
+                    }
+                } catch (e) {
+                    console.error('Failed to load saved data', e);
+                    siteData = {};
+                }
+            }
+        }
+
+        async function syncData() {
+            if (!isOnline || !currentTeam) return;
+            
+            try {
+                // In a real implementation, this would sync to a server
+                // For now, we just mark as synced
+                pendingSync = false;
+                updateOnlineStatus();
+                
+                const syncBanner = document.getElementById('syncBanner');
+                syncBanner.classList.add('show');
+                setTimeout(() => syncBanner.classList.remove('show'), 3000);
+            } catch (e) {
+                console.error('Sync failed', e);
+            }
+        }
+
+        // =====================================================
+        // TEAM SELECTION
+        // =====================================================
+        function selectTeam(team) {
+            try {
+                currentTeam = team;
+                currentDay = 1;
+                loadTeamData();
+                showMainScreen();
+            } catch (e) {
+                console.error('Error selecting team:', e);
+                alert('Error loading team. Please refresh the page.');
+            }
+        }
+
+        function loadTeamData() {
+            try {
+                loadLocal();
+                document.getElementById('teamName').textContent = teamData[currentTeam].name;
+                renderSites();
+                updateProgress();
+            } catch (e) {
+                console.error('Error loading team data:', e);
+            }
+        }
+
+        function showMainScreen() {
+            document.getElementById('teamSelectScreen').classList.add('hidden');
+            document.getElementById('mainScreen').classList.remove('hidden');
+            document.getElementById('headerRight').innerHTML = `
+                <span class="pending-badge" id="syncStatus">✓ Ready</span>
+                <button class="switch-team-btn" onclick="switchTeam()" style="margin-left: 8px;">Switch</button>
+            `;
+            updateOnlineStatus();
+        }
+
+        function switchTeam() {
+            document.getElementById('teamSelectScreen').classList.remove('hidden');
+            document.getElementById('mainScreen').classList.add('hidden');
+            document.getElementById('headerRight').innerHTML = `
+                <span class="pending-badge" id="syncStatus">Select team</span>
+            `;
+        }
+
+        // =====================================================
+        // DAY SWITCHING
+        // =====================================================
+        function switchDay(day) {
+            currentDay = day;
+            localStorage.setItem('bw_day', day.toString());
+            
+            document.getElementById('day1Tab').classList.toggle('active', day === 1);
+            document.getElementById('day2Tab').classList.toggle('active', day === 2);
+            
+            renderSites();
+            updateProgress();
+        }
+
+        // =====================================================
+        // RENDERING
+        // =====================================================
+        function renderSites() {
+            const container = document.getElementById('sitesContainer');
+            const sites = teamData[currentTeam].days[currentDay] || [];
+            
+            let html = '';
+            sites.forEach((site, siteIdx) => {
+                const siteKey = `day${currentDay}_site${siteIdx}`;
+                const state = siteData[siteKey] || {};
+                const isComplete = state.complete;
+                const isExpanded = expandedSites[siteKey];
+                
+                html += `
+                    <div class="site-card">
+                        <div class="site-header ${isComplete ? 'complete' : ''}" onclick="toggleSite('${siteKey}')">
+                            <div>
+                                <h3>${site.name}</h3>
+                                <div class="site-time">⏰ ${site.arrive}</div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="site-status-badge">${isComplete ? '✓ Complete' : 'Pending'}</span>
+                                <span class="chevron ${isExpanded ? 'open' : ''}">▼</span>
+                            </div>
+                        </div>
+                        <div class="site-content ${isExpanded ? 'expanded' : ''}" id="content_${siteKey}">
+                            <div class="site-info">
+                                <p><strong>Work:</strong> ${site.work}</p>
+                                <p><strong>Assets:</strong> ${site.assets.length || 'None (Device maintenance only)'}</p>
+                            </div>
+                            
+                            ${renderAssets(site, siteKey, state)}
+                            
+                            <div class="site-notes-section">
+                                <label>📝 Site Notes</label>
+                                <textarea class="form-textarea" 
+                                    placeholder="General notes for this site..."
+                                    onchange="updateSiteNotes('${siteKey}', this.value)">${state.notes || ''}</textarea>
+                                ${state.completedAt ? `<div class="timestamp">Completed: ${state.completedAt}</div>` : ''}
+                            </div>
+                            
+                            <button class="complete-btn ${isComplete ? 'completed' : ''}" 
+                                onclick="toggleComplete('${siteKey}')">
+                                ${isComplete ? '✓ Site Marked Complete' : 'Mark Site Complete'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function renderAssets(site, siteKey, state) {
+            let html = '';
+            
+            if (site.assets.length === 0) {
+                // Device maintenance only
+                const assetData = state.assets?.[0] || {};
+                html += `
+                    <div class="asset-card">
+                        <div class="asset-header">🔧 Device Maintenance</div>
+                        <div class="asset-body">
+                            <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                                <div class="photo-area ${assetData.photo ? 'has-photo' : ''}" style="flex: 1;"
+                                    onclick="document.getElementById('photo_${siteKey}_0_1').click()">
+                                    ${assetData.photo 
+                                        ? `<img src="${assetData.photo}" alt="Photo 1"><div class="photo-time">📷 ${assetData.photoTime || ''}</div>`
+                                        : '<div class="photo-icon">📷</div><div class="photo-text">Photo 1</div>'
+                                    }
+                                    <input type="file" id="photo_${siteKey}_0_1" accept="image/*" capture="environment" 
+                                        onchange="handlePhoto(this, '${siteKey}', 0, 1)">
+                                </div>
+                                <div class="photo-area ${assetData.photo2 ? 'has-photo' : ''}" style="flex: 1;"
+                                    onclick="document.getElementById('photo_${siteKey}_0_2').click()">
+                                    ${assetData.photo2 
+                                        ? `<img src="${assetData.photo2}" alt="Photo 2"><div class="photo-time">📷 ${assetData.photo2Time || ''}</div>`
+                                        : '<div class="photo-icon">📷</div><div class="photo-text">Photo 2</div>'
+                                    }
+                                    <input type="file" id="photo_${siteKey}_0_2" accept="image/*" capture="environment" 
+                                        onchange="handlePhoto(this, '${siteKey}', 0, 2)">
+                                </div>
+                            </div>
+                            <textarea class="form-textarea" 
+                                placeholder="Device maintenance notes..."
+                                onchange="updateAssetNotes('${siteKey}', 0, this.value)">${assetData.notes || ''}</textarea>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Regular assets
+                html += site.assets.map((asset, assetIdx) => {
+                    const assetData = state.assets?.[assetIdx] || {};
+                    const isDisinfected = assetData.disinfected;
+                    const isUnable = assetData.unable;
+                    return `
+                        <div class="asset-card ${isUnable ? 'unable-asset' : ''}">
+                            <div class="asset-header">${asset}</div>
+                            <div class="asset-body">
+                                <!-- Disinfection checkbox -->
+                                <div class="disinfect-check ${isDisinfected ? 'checked' : ''}" 
+                                    onclick="toggleDisinfected('${siteKey}', ${assetIdx})">
+                                    <input type="checkbox" ${isDisinfected ? 'checked' : ''} 
+                                        onclick="event.stopPropagation(); toggleDisinfected('${siteKey}', ${assetIdx})">
+                                    <label>Cleaned & Disinfected</label>
+                                    ${isDisinfected ? '<span>✓</span>' : ''}
+                                </div>
+                                
+                                <!-- Unable to complete button -->
+                                <button type="button" class="unable-btn ${isUnable ? 'active' : ''}" 
+                                    onclick="toggleUnable('${siteKey}', ${assetIdx})">
+                                    ${isUnable ? '✗ Unable to Complete' : '⚠ Unable to Complete?'}
+                                </button>
+                                
+                                <!-- Unable reason (shown when unable is active) -->
+                                <div class="unable-reason ${isUnable ? 'show' : ''}">
+                                    <textarea placeholder="Reason unable to complete..."
+                                        onchange="updateUnableReason('${siteKey}', ${assetIdx}, this.value)">${assetData.unableReason || ''}</textarea>
+                                </div>
+                                
+                                <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                                    <div class="photo-area ${assetData.photo ? 'has-photo' : ''}" style="flex: 1;"
+                                        onclick="document.getElementById('photo_${siteKey}_${assetIdx}_1').click()">
+                                        ${assetData.photo 
+                                            ? `<img src="${assetData.photo}" alt="Photo 1"><div class="photo-time">📷 ${assetData.photoTime || ''}</div>`
+                                            : '<div class="photo-icon">📷</div><div class="photo-text">Photo 1</div>'
+                                        }
+                                        <input type="file" id="photo_${siteKey}_${assetIdx}_1" accept="image/*" capture="environment" 
+                                            onchange="handlePhoto(this, '${siteKey}', ${assetIdx}, 1)">
+                                    </div>
+                                    <div class="photo-area ${assetData.photo2 ? 'has-photo' : ''}" style="flex: 1;"
+                                        onclick="document.getElementById('photo_${siteKey}_${assetIdx}_2').click()">
+                                        ${assetData.photo2 
+                                            ? `<img src="${assetData.photo2}" alt="Photo 2"><div class="photo-time">📷 ${assetData.photo2Time || ''}</div>`
+                                            : '<div class="photo-icon">📷</div><div class="photo-text">Photo 2</div>'
+                                        }
+                                        <input type="file" id="photo_${siteKey}_${assetIdx}_2" accept="image/*" capture="environment" 
+                                            onchange="handlePhoto(this, '${siteKey}', ${assetIdx}, 2)">
+                                    </div>
+                                </div>
+                                <select class="form-select" onchange="updateAssetCondition('${siteKey}', ${assetIdx}, this.value)">
+                                    <option value="">-- Select Condition --</option>
+                                    <option value="satisfactory" ${assetData.condition === 'satisfactory' ? 'selected' : ''}>✓ Satisfactory</option>
+                                    <option value="minor" ${assetData.condition === 'minor' ? 'selected' : ''}>⚠ Minor Issues</option>
+                                    <option value="attention" ${assetData.condition === 'attention' ? 'selected' : ''}>⚠ Requires Attention</option>
+                                    <option value="urgent" ${assetData.condition === 'urgent' ? 'selected' : ''}>🚨 Urgent Repair Needed</option>
+                                </select>
+                                <textarea class="form-textarea" 
+                                    placeholder="Notes for this asset..."
+                                    onchange="updateAssetNotes('${siteKey}', ${assetIdx}, this.value)">${assetData.notes || ''}</textarea>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            // Additional Asset section (always shown)
+            const additionalIdx = 999; // Use 999 as index for additional asset
+            const additionalData = state.assets?.[additionalIdx] || {};
+            html += `
+                <div class="asset-card" style="border: 2px dashed var(--orange); background: #FFF8F3;">
+                    <div class="asset-header" style="background: var(--orange); color: white;">
+                        ➕ Additional Asset (if found on site)
+                    </div>
+                    <div class="asset-body">
+                        <input type="text" class="form-select" style="margin-bottom: 12px;" 
+                            placeholder="Enter asset name/description..."
+                            value="${additionalData.name || ''}"
+                            onchange="updateAdditionalAssetName('${siteKey}', this.value)">
+                        <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+                            <div class="photo-area ${additionalData.photo ? 'has-photo' : ''}" style="flex: 1;"
+                                onclick="document.getElementById('photo_${siteKey}_${additionalIdx}_1').click()">
+                                ${additionalData.photo 
+                                    ? `<img src="${additionalData.photo}" alt="Photo 1"><div class="photo-time">📷 ${additionalData.photoTime || ''}</div>`
+                                    : '<div class="photo-icon">📷</div><div class="photo-text">Photo 1</div>'
+                                }
+                                <input type="file" id="photo_${siteKey}_${additionalIdx}_1" accept="image/*" capture="environment" 
+                                    onchange="handlePhoto(this, '${siteKey}', ${additionalIdx}, 1)">
+                            </div>
+                            <div class="photo-area ${additionalData.photo2 ? 'has-photo' : ''}" style="flex: 1;"
+                                onclick="document.getElementById('photo_${siteKey}_${additionalIdx}_2').click()">
+                                ${additionalData.photo2 
+                                    ? `<img src="${additionalData.photo2}" alt="Photo 2"><div class="photo-time">📷 ${additionalData.photo2Time || ''}</div>`
+                                    : '<div class="photo-icon">📷</div><div class="photo-text">Photo 2</div>'
+                                }
+                                <input type="file" id="photo_${siteKey}_${additionalIdx}_2" accept="image/*" capture="environment" 
+                                    onchange="handlePhoto(this, '${siteKey}', ${additionalIdx}, 2)">
+                            </div>
+                        </div>
+                        <select class="form-select" onchange="updateAssetCondition('${siteKey}', ${additionalIdx}, this.value)">
+                            <option value="">-- Select Condition --</option>
+                            <option value="satisfactory" ${additionalData.condition === 'satisfactory' ? 'selected' : ''}>✓ Satisfactory</option>
+                            <option value="minor" ${additionalData.condition === 'minor' ? 'selected' : ''}>⚠ Minor Issues</option>
+                            <option value="attention" ${additionalData.condition === 'attention' ? 'selected' : ''}>⚠ Requires Attention</option>
+                            <option value="urgent" ${additionalData.condition === 'urgent' ? 'selected' : ''}>🚨 Urgent Repair Needed</option>
+                        </select>
+                        <textarea class="form-textarea" 
+                            placeholder="Notes for this additional asset..."
+                            onchange="updateAssetNotes('${siteKey}', ${additionalIdx}, this.value)">${additionalData.notes || ''}</textarea>
+                    </div>
+                </div>
+            `;
+            
+            return html;
+        }
+        
+        function updateAdditionalAssetName(siteKey, value) {
+            if (!siteData[siteKey]) siteData[siteKey] = { assets: {} };
+            if (!siteData[siteKey].assets) siteData[siteKey].assets = {};
+            if (!siteData[siteKey].assets[999]) siteData[siteKey].assets[999] = {};
+            
+            siteData[siteKey].assets[999].name = value;
+            saveLocal();
+        }
+        
+        function toggleDisinfected(siteKey, assetIdx) {
+            if (!siteData[siteKey]) siteData[siteKey] = { assets: {} };
+            if (!siteData[siteKey].assets) siteData[siteKey].assets = {};
+            if (!siteData[siteKey].assets[assetIdx]) siteData[siteKey].assets[assetIdx] = {};
+            
+            siteData[siteKey].assets[assetIdx].disinfected = !siteData[siteKey].assets[assetIdx].disinfected;
+            if (siteData[siteKey].assets[assetIdx].disinfected) {
+                siteData[siteKey].assets[assetIdx].disinfectedAt = new Date().toLocaleTimeString();
+            }
+            
+            saveLocal();
+            renderSites();
+            expandedSites[siteKey] = true;
+        }
+        
+        function toggleUnable(siteKey, assetIdx) {
+            if (!siteData[siteKey]) siteData[siteKey] = { assets: {} };
+            if (!siteData[siteKey].assets) siteData[siteKey].assets = {};
+            if (!siteData[siteKey].assets[assetIdx]) siteData[siteKey].assets[assetIdx] = {};
+            
+            siteData[siteKey].assets[assetIdx].unable = !siteData[siteKey].assets[assetIdx].unable;
+            
+            // Clear reason if toggling off
+            if (!siteData[siteKey].assets[assetIdx].unable) {
+                siteData[siteKey].assets[assetIdx].unableReason = '';
+            }
+            
+            saveLocal();
+            renderSites();
+            expandedSites[siteKey] = true;
+        }
+        
+        function updateUnableReason(siteKey, assetIdx, value) {
+            if (!siteData[siteKey]) siteData[siteKey] = { assets: {} };
+            if (!siteData[siteKey].assets) siteData[siteKey].assets = {};
+            if (!siteData[siteKey].assets[assetIdx]) siteData[siteKey].assets[assetIdx] = {};
+            
+            siteData[siteKey].assets[assetIdx].unableReason = value;
+            saveLocal();
+        }
+
+        // =====================================================
+        // INTERACTIONS
+        // =====================================================
+        function toggleSite(siteKey) {
+            expandedSites[siteKey] = !expandedSites[siteKey];
+            const content = document.getElementById(`content_${siteKey}`);
+            const chevron = content.previousElementSibling.querySelector('.chevron');
+            
+            content.classList.toggle('expanded');
+            chevron.classList.toggle('open');
+        }
+
+        function handlePhoto(input, siteKey, assetIdx, photoNum) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                // Compress image
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const maxSize = 800;
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    if (width > height && width > maxSize) {
+                        height = (height * maxSize) / width;
+                        width = maxSize;
+                    } else if (height > maxSize) {
+                        width = (width * maxSize) / height;
+                        height = maxSize;
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    const compressed = canvas.toDataURL('image/jpeg', 0.7);
+                    updateAssetPhoto(siteKey, assetIdx, compressed, photoNum);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateAssetPhoto(siteKey, assetIdx, photoData, photoNum) {
+            if (!siteData[siteKey]) siteData[siteKey] = { assets: {} };
+            if (!siteData[siteKey].assets) siteData[siteKey].assets = {};
+            if (!siteData[siteKey].assets[assetIdx]) siteData[siteKey].assets[assetIdx] = {};
+            
+            if (photoNum === 2) {
+                siteData[siteKey].assets[assetIdx].photo2 = photoData;
+                siteData[siteKey].assets[assetIdx].photo2Time = new Date().toLocaleTimeString();
+            } else {
+                siteData[siteKey].assets[assetIdx].photo = photoData;
+                siteData[siteKey].assets[assetIdx].photoTime = new Date().toLocaleTimeString();
+            }
+            
+            saveLocal();
+            renderSites();
+            expandedSites[siteKey] = true;
+        }
+
+        function updateAssetCondition(siteKey, assetIdx, value) {
+            if (!siteData[siteKey]) siteData[siteKey] = { assets: {} };
+            if (!siteData[siteKey].assets) siteData[siteKey].assets = {};
+            if (!siteData[siteKey].assets[assetIdx]) siteData[siteKey].assets[assetIdx] = {};
+            
+            siteData[siteKey].assets[assetIdx].condition = value;
+            saveLocal();
+        }
+
+        function updateAssetNotes(siteKey, assetIdx, value) {
+            if (!siteData[siteKey]) siteData[siteKey] = { assets: {} };
+            if (!siteData[siteKey].assets) siteData[siteKey].assets = {};
+            if (!siteData[siteKey].assets[assetIdx]) siteData[siteKey].assets[assetIdx] = {};
+            
+            siteData[siteKey].assets[assetIdx].notes = value;
+            saveLocal();
+        }
+
+        function updateSiteNotes(siteKey, value) {
+            if (!siteData[siteKey]) siteData[siteKey] = {};
+            siteData[siteKey].notes = value;
+            saveLocal();
+        }
+
+        function toggleComplete(siteKey) {
+            if (!siteData[siteKey]) siteData[siteKey] = {};
+            siteData[siteKey].complete = !siteData[siteKey].complete;
+            siteData[siteKey].completedAt = siteData[siteKey].complete 
+                ? new Date().toLocaleString() 
+                : null;
+            
+            saveLocal();
+            renderSites();
+            expandedSites[siteKey] = true;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const sites = teamData[currentTeam].days[currentDay] || [];
+            let complete = 0;
+            
+            sites.forEach((site, idx) => {
+                const key = `day${currentDay}_site${idx}`;
+                if (siteData[key]?.complete) complete++;
+            });
+            
+            const percent = sites.length ? (complete / sites.length) * 100 : 0;
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').textContent = `${complete} of ${sites.length} sites complete`;
+        }
+
+        // =====================================================
+        // REPORT GENERATION - Professional PDF
+        // =====================================================
+        async function generateReport() {
+            // Check if jsPDF is loaded (requires internet)
+            if (!window.jspdf) {
+                alert('PDF generation requires an internet connection.\n\nYour data is saved locally. Please connect to WiFi and try again.');
+                return;
+            }
+            
+            const { jsPDF } = window.jspdf;
+            const team = teamData[currentTeam];
+            const summary = document.getElementById('dailySummary').value;
+            const sites = team.days[currentDay];
+            const reportDate = new Date().toLocaleDateString('en-GB', { 
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+            });
+            
+            // Colors
+            const orange = [218, 111, 26];      // #DA6F1A
+            const charcoal = [77, 77, 77];      // #4D4D4D
+            const lightGray = [245, 245, 245];  // #F5F5F5
+            const green = [76, 175, 80];        // #4CAF50
+            const amber = [255, 152, 0];        // #FF9800
+            const red = [229, 57, 53];          // #E53935
+            
+            // Create PDF (A4)
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pageWidth = 210;
+            const pageHeight = 297;
+            const margin = 15;
+            const contentWidth = pageWidth - (margin * 2);
+            let y = margin;
+            
+            // Helper functions
+            function addPage() {
+                pdf.addPage();
+                y = margin;
+                addHeader();
+            }
+            
+            function checkPageBreak(needed) {
+                if (y + needed > pageHeight - 25) {
+                    addPage();
+                    return true;
+                }
+                return false;
+            }
+            
+            function addHeader() {
+                // Orange header bar
+                pdf.setFillColor(...orange);
+                pdf.rect(0, 0, pageWidth, 12, 'F');
+                
+                // Citritek text
+                pdf.setTextColor(255, 255, 255);
+                pdf.setFontSize(8);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('CITRITEK', margin, 8);
+                
+                // Page number
+                pdf.setFont('helvetica', 'normal');
+                pdf.text(`Page ${pdf.internal.getNumberOfPages()}`, pageWidth - margin - 15, 8);
+                
+                pdf.setTextColor(...charcoal);
+                y = 20;
+            }
+            
+            function getConditionColor(condition) {
+                switch(condition) {
+                    case 'satisfactory': return green;
+                    case 'minor': return amber;
+                    case 'attention': return amber;
+                    case 'urgent': return red;
+                    case 'unable': return red;
+                    default: return charcoal;
+                }
+            }
+            
+            function getConditionLabel(condition) {
+                switch(condition) {
+                    case 'satisfactory': return 'Satisfactory';
+                    case 'minor': return 'Minor Issues';
+                    case 'attention': return 'Requires Attention';
+                    case 'urgent': return 'Urgent';
+                    case 'unable': return 'Unable';
+                    default: return 'Not Assessed';
+                }
+            }
+            
+            // Collect issues for summary
+            let issues = [];
+            let totalAssets = 0;
+            let completedSites = 0;
+            
+            sites.forEach((site, idx) => {
+                const key = `day${currentDay}_site${idx}`;
+                const data = siteData[key] || {};
+                if (data.complete) completedSites++;
+                
+                const assetsToCheck = site.assets.length > 0 ? site.assets : ['Device Maintenance'];
+                assetsToCheck.forEach((asset, assetIdx) => {
+                    totalAssets++;
+                    const assetData = data.assets?.[assetIdx] || {};
+                    
+                    // Add to issues if unable to complete
+                    if (assetData.unable) {
+                        issues.push({
+                            site: site.name,
+                            asset: asset,
+                            condition: 'unable',
+                            notes: assetData.unableReason || 'No reason provided'
+                        });
+                    }
+                    // Add to issues if condition is not satisfactory
+                    else if (assetData.condition && assetData.condition !== 'satisfactory') {
+                        issues.push({
+                            site: site.name,
+                            asset: asset,
+                            condition: assetData.condition,
+                            notes: assetData.notes || ''
+                        });
+                    }
+                });
+                
+                // Check additional asset
+                const additional = data.assets?.[999];
+                if (additional && additional.name) {
+                    totalAssets++;
+                    if (additional.unable) {
+                        issues.push({
+                            site: site.name,
+                            asset: additional.name + ' (Additional)',
+                            condition: 'unable',
+                            notes: additional.unableReason || 'No reason provided'
+                        });
+                    } else if (additional.condition && additional.condition !== 'satisfactory') {
+                        issues.push({
+                            site: site.name,
+                            asset: additional.name + ' (Additional)',
+                            condition: additional.condition,
+                            notes: additional.notes || ''
+                        });
+                    }
+                }
+            });
+            
+            // ===== COVER PAGE =====
+            // Compact orange header
+            pdf.setFillColor(...orange);
+            pdf.rect(0, 0, pageWidth, 45, 'F');
+            
+            // Citritek branding - logo placeholder (will be replaced with actual logo)
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFontSize(22);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('CITRITEK', margin, 20);
+            
+            pdf.setFontSize(9);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text('Water Safety Technology', margin, 28);
+            
+            // Report title on right
+            pdf.setFontSize(12);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Quarterly Clean & Disinfection Report', pageWidth - margin - 75, 20);
+            pdf.setFontSize(9);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text('Q1 2026', pageWidth - margin - 15, 28);
+            
+            y = 55;
+            
+            // Client info - compact inline
+            pdf.setTextColor(...charcoal);
+            pdf.setFontSize(10);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Client:', margin, y);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text('Bristol Water', margin + 18, y);
+            
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Team:', margin + 55, y);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text(team.name, margin + 70, y);
+            
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Day:', margin + 110, y);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text(`${currentDay} of 2`, margin + 122, y);
+            
+            y += 6;
+            pdf.setFont('helvetica', 'bold');
+            pdf.text('Date:', margin, y);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text(reportDate, margin + 18, y);
+            
+            y += 10;
+            
+            // Summary box - more compact
+            pdf.setFillColor(...lightGray);
+            pdf.roundedRect(margin, y, contentWidth, 22, 2, 2, 'F');
+            
+            pdf.setFontSize(9);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(...charcoal);
+            pdf.text('Summary', margin + 4, y + 6);
+            
+            pdf.setFont('helvetica', 'normal');
+            pdf.setFontSize(9);
+            pdf.text(`Sites: ${sites.length}`, margin + 4, y + 14);
+            pdf.text(`Completed: ${completedSites}`, margin + 30, y + 14);
+            pdf.text(`Assets: ${totalAssets}`, margin + 65, y + 14);
+            pdf.text(`Issues: ${issues.length}`, margin + 95, y + 14);
+            
+            // Status badge
+            const statusColor = issues.filter(i => i.condition === 'urgent' || i.condition === 'unable').length > 0 ? red : 
+                               issues.length > 0 ? amber : green;
+            const statusText = issues.filter(i => i.condition === 'urgent' || i.condition === 'unable').length > 0 ? 'ACTION REQUIRED' : 
+                              issues.length > 0 ? 'MINOR ISSUES' : 'ALL SATISFACTORY';
+            
+            pdf.setFillColor(...statusColor);
+            pdf.roundedRect(margin + 130, y + 8, 45, 10, 2, 2, 'F');
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFontSize(7);
+            pdf.setFont('helvetica', 'bold');
+            pdf.text(statusText, margin + 133, y + 15);
+            
+            y += 28;
+            
+            // ===== ISSUES & ACTIONS (on same page if fits) =====
+            pdf.setFontSize(11);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(...orange);
+            pdf.text('Issues & Required Actions', margin, y);
+            y += 8;
+            
+            if (issues.length === 0) {
+                pdf.setFillColor(230, 245, 230);
+                pdf.roundedRect(margin, y, contentWidth, 12, 2, 2, 'F');
+                pdf.setTextColor(...green);
+                pdf.setFontSize(9);
+                pdf.setFont('helvetica', 'normal');
+                pdf.text('No issues identified - all assets satisfactory', margin + 4, y + 8);
+                y += 18;
+            } else {
+                // Compact issues table header
+                pdf.setFillColor(...charcoal);
+                pdf.rect(margin, y, contentWidth, 6, 'F');
+                pdf.setTextColor(255, 255, 255);
+                pdf.setFontSize(6);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('Site', margin + 2, y + 4);
+                pdf.text('Asset', margin + 32, y + 4);
+                pdf.text('Status', margin + 110, y + 4);
+                pdf.text('Notes', margin + 135, y + 4);
+                y += 6;
+                
+                // Issues rows - compact
+                issues.forEach((issue, idx) => {
+                    checkPageBreak(8);
+                    
+                    const bgColor = idx % 2 === 0 ? [255, 255, 255] : [250, 250, 250];
+                    pdf.setFillColor(...bgColor);
+                    pdf.rect(margin, y, contentWidth, 7, 'F');
+                    
+                    pdf.setTextColor(...charcoal);
+                    pdf.setFontSize(6);
+                    pdf.setFont('helvetica', 'normal');
+                    
+                    const siteName = issue.site.length > 16 ? issue.site.substring(0, 14) + '..' : issue.site;
+                    const assetName = issue.asset.length > 42 ? issue.asset.substring(0, 40) + '..' : issue.asset;
+                    const notes = issue.notes.length > 28 ? issue.notes.substring(0, 26) + '..' : issue.notes;
+                    
+                    pdf.text(siteName, margin + 2, y + 5);
+                    pdf.text(assetName, margin + 32, y + 5);
+                    
+                    const condColor = getConditionColor(issue.condition);
+                    pdf.setFillColor(...condColor);
+                    pdf.roundedRect(margin + 110, y + 1, 20, 5, 1, 1, 'F');
+                    pdf.setTextColor(255, 255, 255);
+                    pdf.setFontSize(5);
+                    pdf.text(getConditionLabel(issue.condition).toUpperCase(), margin + 112, y + 4.5);
+                    
+                    pdf.setTextColor(...charcoal);
+                    pdf.setFontSize(6);
+                    pdf.text(notes, margin + 135, y + 5);
+                    
+                    y += 7;
+                });
+                y += 5;
+            }
+            
+            // Footer on cover
+            pdf.setTextColor(150, 150, 150);
+            pdf.setFontSize(7);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text('Citritek Limited | Water Safety Technology', margin, pageHeight - 12);
+            pdf.text(`Generated: ${new Date().toLocaleString('en-GB')}`, pageWidth - margin - 45, pageHeight - 12);
+            
+            // ===== SITE DETAIL PAGES =====
+            for (let siteIdx = 0; siteIdx < sites.length; siteIdx++) {
+                const site = sites[siteIdx];
+                const key = `day${currentDay}_site${siteIdx}`;
+                const data = siteData[key] || {};
+                
+                // Calculate space needed for this site
+                const assetCount = site.assets.length || 1;
+                const hasPhotos = Object.values(data.assets || {}).some(a => a.photo || a.photo2);
+                const spaceNeeded = 25 + (assetCount * 7) + (hasPhotos ? 25 : 0);
+                
+                // Add page if needed, but don't start each site on new page
+                if (y + spaceNeeded > pageHeight - 25 || siteIdx === 0) {
+                    addPage();
+                }
+                
+                // Site header - compact
+                pdf.setFillColor(...charcoal);
+                pdf.rect(margin, y, contentWidth, 8, 'F');
+                pdf.setTextColor(255, 255, 255);
+                pdf.setFontSize(9);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text(site.name, margin + 3, y + 5.5);
+                
+                // Status badge
+                const statusCol = data.complete ? green : amber;
+                pdf.setFillColor(...statusCol);
+                pdf.roundedRect(pageWidth - margin - 22, y + 1.5, 19, 5, 1, 1, 'F');
+                pdf.setFontSize(5);
+                pdf.text(data.complete ? 'COMPLETE' : 'PENDING', pageWidth - margin - 20, y + 5);
+                
+                y += 10;
+                
+                // Site info - single line
+                pdf.setTextColor(...charcoal);
+                pdf.setFontSize(7);
+                pdf.setFont('helvetica', 'normal');
+                let infoLine = `Work: ${site.work}  |  Arrival: ${site.arrive}`;
+                if (data.completedAt) infoLine += `  |  Completed: ${data.completedAt}`;
+                pdf.text(infoLine, margin + 2, y);
+                y += 6;
+                
+                // Assets table header - tighter
+                pdf.setFillColor(240, 240, 240);
+                pdf.rect(margin, y, contentWidth, 5, 'F');
+                pdf.setTextColor(...charcoal);
+                pdf.setFontSize(5);
+                pdf.setFont('helvetica', 'bold');
+                pdf.text('Asset', margin + 2, y + 3.5);
+                pdf.text('C&D', margin + 78, y + 3.5);
+                pdf.text('Condition', margin + 95, y + 3.5);
+                pdf.text('Pics', margin + 130, y + 3.5);
+                pdf.text('Status', margin + 150, y + 3.5);
+                y += 5;
+                
+                // Assets
+                const assetsToRender = site.assets.length > 0 ? 
+                    site.assets.map((a, i) => ({ name: a, idx: i })) : 
+                    [{ name: 'Device Maintenance', idx: 0 }];
+                
+                for (const assetObj of assetsToRender) {
+                    const assetData = data.assets?.[assetObj.idx] || {};
+                    
+                    checkPageBreak(25);
+                    
+                    // Asset row - compact
+                    pdf.setFontSize(5);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setTextColor(...charcoal);
+                    
+                    const assetName = assetObj.name.length > 48 ? assetObj.name.substring(0, 46) + '..' : assetObj.name;
+                    pdf.text(assetName, margin + 2, y + 3.5);
+                    
+                    // C&D badge - smaller
+                    if (assetData.disinfected) {
+                        pdf.setFillColor(...green);
+                        pdf.roundedRect(margin + 78, y + 0.5, 12, 4, 0.5, 0.5, 'F');
+                        pdf.setTextColor(255, 255, 255);
+                        pdf.setFontSize(4);
+                        pdf.text('YES', margin + 81, y + 3.5);
+                    } else {
+                        pdf.setFillColor(210, 210, 210);
+                        pdf.roundedRect(margin + 78, y + 0.5, 12, 4, 0.5, 0.5, 'F');
+                        pdf.setTextColor(120, 120, 120);
+                        pdf.setFontSize(4);
+                        pdf.text('NO', margin + 82, y + 3.5);
+                    }
+                    
+                    // Condition badge - smaller
+                    const condColor = getConditionColor(assetData.condition);
+                    pdf.setFillColor(...condColor);
+                    pdf.roundedRect(margin + 95, y + 0.5, 30, 4, 0.5, 0.5, 'F');
+                    pdf.setTextColor(255, 255, 255);
+                    pdf.setFontSize(4);
+                    const condLabel = getConditionLabel(assetData.condition).toUpperCase();
+                    pdf.text(condLabel, margin + 97, y + 3.5);
+                    
+                    // Photos count
+                    pdf.setTextColor(...charcoal);
+                    pdf.setFontSize(5);
+                    const photoCount = (assetData.photo ? 1 : 0) + (assetData.photo2 ? 1 : 0);
+                    pdf.text(`${photoCount}/2`, margin + 132, y + 3.5);
+                    
+                    // Status badge - smaller
+                    if (assetData.unable) {
+                        pdf.setFillColor(...red);
+                        pdf.roundedRect(margin + 150, y + 0.5, 18, 4, 0.5, 0.5, 'F');
+                        pdf.setTextColor(255, 255, 255);
+                        pdf.setFontSize(4);
+                        pdf.text('UNABLE', margin + 152, y + 3.5);
+                    } else if (assetData.disinfected) {
+                        pdf.setFillColor(...green);
+                        pdf.roundedRect(margin + 150, y + 0.5, 18, 4, 0.5, 0.5, 'F');
+                        pdf.setTextColor(255, 255, 255);
+                        pdf.setFontSize(4);
+                        pdf.text('DONE', margin + 155, y + 3.5);
+                    } else {
+                        pdf.setFillColor(210, 210, 210);
+                        pdf.roundedRect(margin + 150, y + 0.5, 18, 4, 0.5, 0.5, 'F');
+                        pdf.setTextColor(120, 120, 120);
+                        pdf.setFontSize(4);
+                        pdf.text('PENDING', margin + 152, y + 3.5);
+                    }
+                    
+                    y += 5;
+                    
+                    // Unable reason - compact
+                    if (assetData.unable && assetData.unableReason) {
+                        pdf.setFillColor(255, 240, 240);
+                        pdf.roundedRect(margin + 3, y, contentWidth - 6, 5, 0.5, 0.5, 'F');
+                        pdf.setTextColor(...red);
+                        pdf.setFontSize(4);
+                        const reasonText = assetData.unableReason.length > 100 ? assetData.unableReason.substring(0, 98) + '..' : assetData.unableReason;
+                        pdf.text('Unable: ' + reasonText, margin + 5, y + 3.5);
+                        y += 6;
+                    }
+                    
+                    // Notes - compact
+                    if (assetData.notes) {
+                        pdf.setTextColor(100, 100, 100);
+                        pdf.setFontSize(4);
+                        const notesText = assetData.notes.length > 100 ? assetData.notes.substring(0, 98) + '..' : assetData.notes;
+                        pdf.text('Notes: ' + notesText, margin + 3, y + 2);
+                        y += 4;
+                    }
+                    
+                    // Add photos if present - smaller
+                    if (assetData.photo || assetData.photo2) {
+                        checkPageBreak(20);
+                        
+                        let photoX = margin + 3;
+                        if (assetData.photo) {
+                            try {
+                                pdf.addImage(assetData.photo, 'JPEG', photoX, y, 28, 21);
+                                pdf.setDrawColor(220, 220, 220);
+                                pdf.rect(photoX, y, 28, 21);
+                                photoX += 30;
+                            } catch(e) { console.log('Photo 1 error', e); }
+                        }
+                        if (assetData.photo2) {
+                            try {
+                                pdf.addImage(assetData.photo2, 'JPEG', photoX, y, 28, 21);
+                                pdf.setDrawColor(220, 220, 220);
+                                pdf.rect(photoX, y, 28, 21);
+                            } catch(e) { console.log('Photo 2 error', e); }
+                        }
+                        y += 23;
+                    }
+                    
+                    // Light divider
+                    pdf.setDrawColor(240, 240, 240);
+                    pdf.line(margin + 2, y, pageWidth - margin - 2, y);
+                    y += 1;
+                }
+                
+                // Additional asset if present - compact
+                const additional = data.assets?.[999];
+                if (additional && (additional.name || additional.photo || additional.photo2)) {
+                    checkPageBreak(20);
+                    
+                    pdf.setFillColor(...orange);
+                    pdf.setTextColor(255, 255, 255);
+                    pdf.roundedRect(margin, y, contentWidth, 5, 0.5, 0.5, 'F');
+                    pdf.setFontSize(5);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text('ADDITIONAL ASSET: ' + (additional.name || 'Unnamed'), margin + 3, y + 3.5);
+                    y += 6;
+                    
+                    // Condition badge for additional
+                    const condColor = getConditionColor(additional.condition);
+                    pdf.setFillColor(...condColor);
+                    pdf.roundedRect(margin + 3, y, 25, 4, 0.5, 0.5, 'F');
+                    pdf.setTextColor(255, 255, 255);
+                    pdf.setFontSize(4);
+                    pdf.text(getConditionLabel(additional.condition).toUpperCase(), margin + 5, y + 3);
+                    y += 5;
+                    
+                    if (additional.photo || additional.photo2) {
+                        let photoX = margin + 3;
+                        if (additional.photo) {
+                            try {
+                                pdf.addImage(additional.photo, 'JPEG', photoX, y, 28, 21);
+                                photoX += 30;
+                            } catch(e) {}
+                        }
+                        if (additional.photo2) {
+                            try {
+                                pdf.addImage(additional.photo2, 'JPEG', photoX, y, 28, 21);
+                            } catch(e) {}
+                        }
+                        y += 23;
+                    }
+                    
+                    if (additional.notes) {
+                        pdf.setTextColor(100, 100, 100);
+                        pdf.setFontSize(4);
+                        pdf.text('Notes: ' + additional.notes, margin + 3, y + 2);
+                        y += 4;
+                    }
+                }
+                
+                // Site notes - compact
+                if (data.notes) {
+                    checkPageBreak(10);
+                    pdf.setFillColor(255, 250, 245);
+                    pdf.roundedRect(margin, y, contentWidth, 8, 1, 1, 'F');
+                    pdf.setTextColor(...charcoal);
+                    pdf.setFontSize(5);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.text('Site Notes:', margin + 2, y + 3);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setFontSize(4);
+                    const noteText = data.notes.length > 140 ? data.notes.substring(0, 138) + '..' : data.notes;
+                    pdf.text(noteText, margin + 2, y + 6.5);
+                    y += 10;
+                }
+                
+                y += 3; // Gap between sites
+            }
+            
+            // ===== END OF DAY SUMMARY - on same page if fits =====
+            checkPageBreak(50);
+            y += 5;
+            
+            pdf.setFontSize(9);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(...orange);
+            pdf.text('End of Day Summary', margin, y);
+            y += 6;
+            
+            // Calculate height needed for summary
+            const summaryText = summary || 'No summary provided.';
+            const summaryLines = pdf.splitTextToSize(summaryText, contentWidth - 6);
+            const summaryHeight = Math.max(25, summaryLines.length * 4 + 6);
+            
+            pdf.setFillColor(250, 250, 250);
+            pdf.roundedRect(margin, y, contentWidth, summaryHeight, 2, 2, 'F');
+            
+            pdf.setTextColor(...charcoal);
+            pdf.setFontSize(7);
+            pdf.setFont('helvetica', 'normal');
+            pdf.text(summaryLines, margin + 3, y + 5);
+            
+            y += summaryHeight + 5;
+            
+            // Sign-off section - compact
+            checkPageBreak(25);
+            pdf.setFontSize(8);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(...charcoal);
+            pdf.text('Sign-Off', margin, y);
+            y += 6;
+            
+            pdf.setDrawColor(180, 180, 180);
+            pdf.setFontSize(6);
+            pdf.setFont('helvetica', 'normal');
+            
+            // Technician line
+            pdf.line(margin, y + 8, margin + 50, y + 8);
+            pdf.text('Technician', margin, y + 12);
+            
+            pdf.line(margin + 60, y + 8, margin + 90, y + 8);
+            pdf.text('Date', margin + 60, y + 12);
+            
+            // Client line
+            pdf.line(margin + 100, y + 8, margin + 150, y + 8);
+            pdf.text('Client Rep', margin + 100, y + 12);
+            
+            pdf.line(margin + 160, y + 8, pageWidth - margin, y + 8);
+            pdf.text('Date', margin + 160, y + 12);
+            
+            // Save
+            const filename = `BW_Compliance_Report_${team.name.replace(/[^a-zA-Z0-9]/g, '_')}_Day${currentDay}_${new Date().toISOString().split('T')[0]}.pdf`;
+            pdf.save(filename);
+        }
+
+        // =====================================================
+        // PWA INSTALL
+        // =====================================================
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choice) => {
+                    deferredPrompt = null;
+                    document.getElementById('installPrompt').classList.remove('show');
+                });
+            }
+        }
+
+        function dismissInstall() {
+            localStorage.setItem('bw_install_dismissed', 'true');
+            document.getElementById('installPrompt').classList.remove('show');
+        }
+
+        // =====================================================
+        // SERVICE WORKER REGISTRATION (for full offline support)
+        // =====================================================
+        if ('serviceWorker' in navigator) {
+            // Create a simple service worker inline
+            const swCode = `
+                const CACHE_NAME = 'bw-field-report-v1';
+                self.addEventListener('install', e => self.skipWaiting());
+                self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+                self.addEventListener('fetch', e => {
+                    e.respondWith(
+                        caches.match(e.request).then(r => r || fetch(e.request))
+                    );
+                });
+            `;
+            const swBlob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(swBlob);
+            
+            // Note: Service workers require HTTPS in production
+            // For local testing, this will cache the page for offline use
+        }
+    </script>
+</body>
+</html>
