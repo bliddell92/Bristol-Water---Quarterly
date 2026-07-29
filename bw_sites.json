@@ -1,0 +1,2900 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-05-07",
+  "client": "Bristol Water",
+  "site_count": 48,
+  "sites": [
+    {
+      "name": "Alderley TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///song.bystander.insisting",
+      "postcode": "GL12 7NE",
+      "gps": "51.622426,-2.332183",
+      "bw_site_no": 4,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Eyebath - Electro Chlorination Kiosk Internal",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath (External)",
+          "can": "#107362",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath - Membrane Building Internal",
+          "can": "#59279/23028",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Almondsbury PS",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///string.arch.payer",
+      "postcode": "BS345TU",
+      "gps": "51.528447,-2.592937",
+      "bw_site_no": 2,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Avonmouth PS",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///deals.woes.noon",
+      "postcode": "BS119QE",
+      "gps": "51.491524,-2.689644",
+      "bw_site_no": 10,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Eyebath",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": []
+    },
+    {
+      "name": "Axbridge PS",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///exclusive.investor.invisible",
+      "postcode": "BS26 2HG",
+      "gps": "51.284538,-2.808407",
+      "bw_site_no": 6,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Axbridge TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///exclusive.investor.invisible",
+      "postcode": "BS26 2HG",
+      "gps": "51.284565,-2.808363",
+      "bw_site_no": 25,
+      "tangeretin_devices": 4,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Eyebath - Treatment Room Shutter Door Internal",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - Treatment Room Rear Wall Internal",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - PACl Injection Point LHS External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - PACl Injection Point RHS External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - PACL Injection Point LHS External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - PACL Injection Point RHS External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath - External Rear",
+          "can": "#41761/81670",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Banwell TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///numeral.sulk.action",
+      "postcode": "BS296NP",
+      "gps": "51.323456,-2.864023",
+      "bw_site_no": 18,
+      "tangeretin_devices": 4,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "Domestic Shower",
+          "can": "#49923",
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - Main Building Internal",
+          "can": "#1784",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - Membrane Building External",
+          "can": "#50599",
+          "type": "mf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath - PACL Delivery Point - RHS",
+          "can": "#50632",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath - Sulphuric Acid Delivery Point - Rear Ext",
+          "can": "#50912",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower - Membrane Building External",
+          "can": "#1783",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath - Membrane Building Internal",
+          "can": "#23432/23435`Y",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Barrow Logistics",
+      "visit_frequency": "six_monthly",
+      "cac_required": false,
+      "what3words": "///beast.flight.shunts",
+      "postcode": "BS48 3SH",
+      "gps": "51.40749,-2.670362",
+      "bw_site_no": 44,
+      "tangeretin_devices": 3,
+      "sim_gateways": 1,
+      "notes": "150l cylinder",
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "sm_expansion_vessel",
+          "label": "Flushing of expansion vessel",
+          "frequency": "six_monthly",
+          "notes": ""
+        },
+        {
+          "id": "a_calorifier_blowdown",
+          "label": "Calorifier blowdown and sample condition report",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Barrow TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///ocean.lance.stays",
+      "postcode": "BS48 3SH",
+      "gps": "51.409026,-2.669368",
+      "bw_site_no": 21,
+      "tangeretin_devices": 10,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Shower Sodium Hydroxide Dosing Kiosk",
+          "can": "#47990",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath Sodium Hydroxide Dosing Kiosk",
+          "can": "#47998",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower/Eyebath Sodium Hydroxide Delivery Point",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "Domestic Shower",
+          "can": "#47574",
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower/Eyebath Sulphuric Acid Tank",
+          "can": "#55515",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower/Eyebath Internal PACL/Coag Building",
+          "can": "#55165",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower/Eyebath Internal NSSS Building - Valve Room",
+          "can": "#83139/83138",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower High Lift Pump Hall - External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath High Lift Pump Hall - Internal",
+          "can": "#2101",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath External PACL/Coag Building",
+          "can": "#41757/55149",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "sm_potable_cwst_sample",
+          "label": "Potable laboratory sample of potable CWST",
+          "frequency": "six_monthly",
+          "notes": ""
+        },
+        {
+          "id": "a_cwst_temp",
+          "label": "Record temperature of potable CWST",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_cwst_visual_potable",
+          "label": "Visual inspection of potable CWST (physical & internal)",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Blagdon Depot",
+      "visit_frequency": "annual",
+      "cac_required": false,
+      "what3words": "///mostly.education.confronts",
+      "postcode": "BS407UN",
+      "gps": "51.335072,-2.713191",
+      "bw_site_no": 30,
+      "tangeretin_devices": 3,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Blagdon Lodge",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///streetcar.twee.revolts",
+      "postcode": "BS407XF",
+      "gps": "51.332646,-2.709994",
+      "bw_site_no": 32,
+      "tangeretin_devices": 3,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Blagdon Visitor Centre",
+      "visit_frequency": "annual",
+      "cac_required": false,
+      "what3words": "///mostly.education.confronts",
+      "postcode": "BS407SQ",
+      "gps": "51.335045,-2.713191",
+      "bw_site_no": 31,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Brent Knoll MS",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///shelters.biggest.lordship",
+      "postcode": "TA94BX",
+      "gps": "51.260066,-2.953787",
+      "bw_site_no": 39,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Eyebath - Internal",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower - External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Charterhouse",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///suitable.postings.jobs",
+      "postcode": "BS407XS",
+      "gps": "51.300547,-2.738074",
+      "bw_site_no": 53,
+      "tangeretin_devices": 0,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Chase Res",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///pops.bottle.curl",
+      "postcode": "BS151PN",
+      "gps": "51.469397,-2.511976",
+      "bw_site_no": 54,
+      "tangeretin_devices": 1,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Eyebath - External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower - External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Cheddar Depot",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///flushed.conjured.funds",
+      "postcode": "BS273DY",
+      "gps": "51.276534,-2.788026",
+      "bw_site_no": 59,
+      "tangeretin_devices": 3,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "Domestic Shower",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": []
+    },
+    {
+      "name": "Cheddar TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///flushed.conjured.funds",
+      "postcode": "BS273EA",
+      "gps": "51.276507,-2.788026",
+      "bw_site_no": 58,
+      "tangeretin_devices": 6,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Shower - External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - Pump Hall (Upper)",
+          "can": "#5629",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - Pump Hall (Lower)",
+          "can": "#63946",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Chelvey TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///punctured.fidgeted.pines",
+      "postcode": "BS484AJ",
+      "gps": "51.408056,-2.75832",
+      "bw_site_no": 62,
+      "tangeretin_devices": 4,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Shower - ECL Building - External",
+          "can": "#57680",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - ECL Building - Internal",
+          "can": "#57684",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower - ECL Building - Internal",
+          "can": "#83617",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower - Membrane Building - Internal",
+          "can": "#68578/26356",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Chew Stoke PS",
+      "visit_frequency": "annual",
+      "cac_required": false,
+      "what3words": "///recently.pays.typically",
+      "postcode": "BS408XS",
+      "gps": "51.351781,-2.622733",
+      "bw_site_no": 70,
+      "tangeretin_devices": 3,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Chew Stoke Tower",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///apartment.fillers.reclaimed",
+      "postcode": "BS40 8XS",
+      "gps": "51.35118678364745, -2.6188017887096247",
+      "bw_site_no": null,
+      "tangeretin_devices": 0,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Chew Valley Picnic Area",
+      "visit_frequency": "annual",
+      "cac_required": false,
+      "what3words": "///glitz.boils.cautious",
+      "postcode": "BS40 8TF",
+      "gps": "51.346041,-2.60611",
+      "bw_site_no": 68,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Chew Valley Tea Shop (Salt & Malt)",
+      "visit_frequency": "annual",
+      "cac_required": false,
+      "what3words": "///unfounded.fatigued.geese",
+      "postcode": "BS406HW",
+      "gps": "51.350326,-2.613709",
+      "bw_site_no": 68,
+      "tangeretin_devices": 2,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Clandown",
+      "visit_frequency": "six_monthly",
+      "cac_required": false,
+      "what3words": "///prefer.models.chitchat",
+      "postcode": "BA3 3DG",
+      "gps": "51.30601219048319, -2.4604296407594672",
+      "bw_site_no": null,
+      "tangeretin_devices": 0,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Clevedon TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///stables.snowballs.moods",
+      "postcode": "BS216QX",
+      "gps": "51.440936,-2.822149",
+      "bw_site_no": 75,
+      "tangeretin_devices": 3,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Shower - External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower - Internal",
+          "can": null,
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Coley PS",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///streak.system.reduction",
+      "postcode": "BS406AN",
+      "gps": "51.29734,-2.597459",
+      "bw_site_no": 938,
+      "tangeretin_devices": 1,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Cooks Corner",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///running.simulates.toolbar",
+      "postcode": "BA69LA",
+      "gps": "51.155792,-2.7348",
+      "bw_site_no": 89,
+      "tangeretin_devices": 1,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Eyebath - Internal",
+          "can": "#30048",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower - External",
+          "can": "#30051",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Dry Hill",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///comically.delay.held",
+      "postcode": "BS206ND",
+      "gps": "51.482819,-2.775576",
+      "bw_site_no": 102,
+      "tangeretin_devices": 3,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Eyebath - Internal",
+          "can": "#41696",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower - External",
+          "can": "#41677",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Forum TW",
+      "visit_frequency": "six_monthly",
+      "cac_required": true,
+      "what3words": "///massaged.rollers.move",
+      "postcode": "BA44JR",
+      "gps": "51.200854,-2.54341",
+      "bw_site_no": 132,
+      "tangeretin_devices": 0,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "TF Emergency Shower/Eyebath - Crypto Building Internal",
+          "can": "#24435",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Frome Depot",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///acquaint.dabbing.shapes",
+      "postcode": "BA113JJ",
+      "gps": "51.232091,-2.338908",
+      "bw_site_no": 129,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": "Combi not POU",
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Frome Town TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///acquaint.dabbing.shapes",
+      "postcode": "BA113JF",
+      "gps": "51.232118,-2.338908",
+      "bw_site_no": 130,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Eyebath - Hypo Shed",
+          "can": "#85575",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower - Crypto Building Rear External",
+          "can": "#24134",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath - Membrane Building Internal",
+          "can": "#24116",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Gurney Slade",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///wounds.handbook.sweetened",
+      "postcode": "BA34TE",
+      "gps": "51.242817,-2.530626",
+      "bw_site_no": 138,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Head Office",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///funds.linen.blitz",
+      "postcode": "BS137AT",
+      "gps": "51.423634,-2.623594",
+      "bw_site_no": 145,
+      "tangeretin_devices": 14,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "Domestic Shower 1 (GF - Shower Area)",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "Domestic Shower 2 (GF - Shower Area)",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "Domestic Shower 3 (GF - Shower Area)",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "Domestic Shower 4 (GF - Shower Area)",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "Domestic Shower (GF - Shower Area - Disabled Bathroom)",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "Domestic Shower (GF - Control Room)",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "sm_potable_cwst_sample",
+          "label": "Potable laboratory sample of potable CWST",
+          "frequency": "six_monthly",
+          "notes": ""
+        },
+        {
+          "id": "sm_expansion_vessel",
+          "label": "Flushing of expansion vessel",
+          "frequency": "six_monthly",
+          "notes": ""
+        },
+        {
+          "id": "a_cwst_temp",
+          "label": "Record temperature of potable CWST",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_cwst_visual_potable",
+          "label": "Visual inspection of potable CWST (physical & internal)",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_cwst_visual_process",
+          "label": "Visual inspection of process CWST (physical & internal)",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Hillhouse",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///airbase.braved.mailboxes",
+      "postcode": "BS273UY",
+      "gps": "51.41005,-2.630813",
+      "bw_site_no": 149,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Kingswood",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///asset.sweep.luxury",
+      "postcode": "BS151PU",
+      "gps": "51.469559,-2.510677",
+      "bw_site_no": 176,
+      "tangeretin_devices": 4,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "Domestic Shower - Main Building Ground Floor",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Littleton TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///recap.spiking.originate",
+      "postcode": "BS351NT",
+      "gps": "51.601512,-2.57615",
+      "bw_site_no": 188,
+      "tangeretin_devices": 5,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "Domestic Shower - Main Building First Floor",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower - Phos Delivery Area Emergency Shower (External)",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower - Phos Delivery Area Emergency Shower (Internal)",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower/Eyebath - Main Building Ground Floor (Outside Caustic Room) - MF Eyebath (Asset ) Ground Floor \u2013 MF Eyebath Caustic Room (Asset # FS62743)",
+          "can": "#FS12382",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - Main Building Ground Floor Caustic Room",
+          "can": "#FS62743",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Lockleaze PS",
+      "visit_frequency": "six_monthly",
+      "cac_required": false,
+      "what3words": "///weedy.cost.bring",
+      "postcode": "BS7 9XY",
+      "gps": "51.49845,-2.566506",
+      "bw_site_no": 94,
+      "tangeretin_devices": 0,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "TF Emergency Shower/Eyebath - Internal",
+          "can": "#59815",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Maesbury",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///interrupt.callers.barks",
+      "postcode": "BA34UN",
+      "gps": "51.228264,-2.565922",
+      "bw_site_no": 200,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Eyebath - Internal",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower - External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": []
+    },
+    {
+      "name": "Oldford TW",
+      "visit_frequency": "six_monthly",
+      "cac_required": true,
+      "what3words": "///salads.cries.coaching",
+      "postcode": "BA112ND",
+      "gps": "51.250202,-2.310647",
+      "bw_site_no": 225,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "TF Emergency Shower - External",
+          "can": "#25051/25053",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower - Internal",
+          "can": "#25034",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Pucklechurch Res",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///thick.trap.rents",
+      "postcode": "BS169PG",
+      "gps": "51.483438,-2.44705",
+      "bw_site_no": 243,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Purton TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///trinkets.speared.withdraw",
+      "postcode": "GL139HN",
+      "gps": "51.73015,-2.44316",
+      "bw_site_no": 247,
+      "tangeretin_devices": 6,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "Domestic Shower - Main Building Ground Floor",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "Domestic Shower - Main Building First Floor",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - Main Hall Ground Floor",
+          "can": "#63228",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower/Eyebath - Main Hall Lower Ground Floor",
+          "can": "#22527",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath (Handheld) - Main Hall Lower Ground Floor",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - External Delivery Area Brine Dosing Kiosk A",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - External Delivery Inlet Hypo Dosing Kiosk (K13)",
+          "can": "#62715",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower/Eyebath - Front Car Park External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath (Handheld) - Front Car Park External",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Shower/Eyebath - Sand Filters Building Internal",
+          "can": "#61669/61670",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower - Main Hall Internal",
+          "can": "#25371",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower - Phos Acid Tank - External Rear",
+          "can": null,
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "sm_expansion_vessel",
+          "label": "Flushing of expansion vessel",
+          "frequency": "six_monthly",
+          "notes": ""
+        },
+        {
+          "id": "a_cwst_visual_process",
+          "label": "Visual inspection of process CWST (physical & internal)",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_calorifier_blowdown",
+          "label": "Calorifier blowdown and sample condition report",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Rowberrow",
+      "visit_frequency": "annual",
+      "cac_required": false,
+      "what3words": "///frail.unusually.couple",
+      "postcode": "BS251QH",
+      "gps": "51.326124,-2.800099",
+      "bw_site_no": 262,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Sherborne Springs",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///elsewhere.they.polished",
+      "postcode": "BA34PR",
+      "gps": "51.292489,-2.594785",
+      "bw_site_no": 268,
+      "tangeretin_devices": 0,
+      "sim_gateways": 0,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": [
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Shipton Moyne TW",
+      "visit_frequency": "six_monthly",
+      "cac_required": true,
+      "what3words": "///decompose.mouse.unzips",
+      "postcode": "GL88PS",
+      "gps": "51.596364,-2.146463",
+      "bw_site_no": 272,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "TF Emergency Shower/Eyebath (External)",
+          "can": "#FS49302",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Stowey TW",
+      "visit_frequency": "quarterly",
+      "cac_required": true,
+      "what3words": "///zone.hack.imported",
+      "postcode": "BS394DL",
+      "gps": "51.34631,-2.583441",
+      "bw_site_no": 285,
+      "tangeretin_devices": 4,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "Domestic Shower",
+          "can": null,
+          "type": "domestic_shower",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - Sodium Hydroxide Dosing Kiosk Internal",
+          "can": "#86402",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath - ECL Building Internal",
+          "can": null,
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath - UV Building External (Fenced Area)",
+          "can": null,
+          "type": "tf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath - External Rear",
+          "can": "#86350",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        },
+        {
+          "asset": "TF Emergency Shower/Eyebath - Sodium Hydroxide Dosing Kiosk Internal",
+          "can": null,
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": []
+    },
+    {
+      "name": "Tetbury TW",
+      "visit_frequency": "six_monthly",
+      "cac_required": true,
+      "what3words": "///snips.replayed.bangle",
+      "postcode": "GL88SE",
+      "gps": "51.647841,-2.16104",
+      "bw_site_no": 474,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "TF Emergency Shower/Eyebath (External)",
+          "can": "#73802",
+          "type": "tf",
+          "source_sheets": [
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "visual_tank",
+              "label": "Visual: header tank",
+              "frequency": "six_monthly"
+            },
+            {
+              "id": "lp_sample",
+              "label": "Legionella pneumophila sample",
+              "frequency": "six_monthly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "on_slow_release_cartridge",
+          "label": "Check / replace slow-release disinfection cartridge (ESH supply tank)",
+          "frequency": "ongoing",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Ubley Fishery",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///campsites.enhanced.sharpness",
+      "postcode": "BS406PU",
+      "gps": "51.328711,-2.674021",
+      "bw_site_no": 313,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Victoria PS",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///discrepancy.proud.engine",
+      "postcode": "BS82LG",
+      "gps": "51.461015,-2.610858",
+      "bw_site_no": 319,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "MF Emergency Shower",
+          "can": "#41509",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_shower",
+              "label": "Clean showerhead",
+              "frequency": "quarterly"
+            }
+          ]
+        },
+        {
+          "asset": "MF Emergency Eyebath",
+          "can": "#41508",
+          "type": "mf",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_eyebath",
+              "label": "Clean eyebath",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "a_rpz_inspection",
+          "label": "Inspection of RPZ valve",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "name": "Windmill Hill",
+      "visit_frequency": "none",
+      "cac_required": false,
+      "what3words": "///grips.taxi.host",
+      "postcode": "BA68HG",
+      "gps": "51.155118,-2.710462",
+      "bw_site_no": 338,
+      "tangeretin_devices": 1,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [],
+      "site_level_items": []
+    },
+    {
+      "name": "Woodford Lodge",
+      "visit_frequency": "quarterly",
+      "cac_required": false,
+      "what3words": "///tentacles.punks.hooked",
+      "postcode": "BS408XH",
+      "gps": "51.344612,-2.6337",
+      "bw_site_no": 343,
+      "tangeretin_devices": 2,
+      "sim_gateways": 1,
+      "notes": null,
+      "outlets": [
+        {
+          "asset": "Spray Tap - Restaurant Kitchen",
+          "can": null,
+          "type": "spray_tap",
+          "source_sheets": [
+            "qtly",
+            "sixm"
+          ],
+          "subtasks": [
+            {
+              "id": "clean_spray_tap",
+              "label": "Clean spray tap",
+              "frequency": "quarterly"
+            }
+          ]
+        }
+      ],
+      "site_level_items": [
+        {
+          "id": "sm_potable_cwst_sample",
+          "label": "Potable laboratory sample of potable CWST",
+          "frequency": "six_monthly",
+          "notes": ""
+        },
+        {
+          "id": "sm_expansion_vessel",
+          "label": "Flushing of expansion vessel",
+          "frequency": "six_monthly",
+          "notes": ""
+        },
+        {
+          "id": "a_cwst_temp",
+          "label": "Record temperature of potable CWST",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_cwst_visual_potable",
+          "label": "Visual inspection of potable CWST (physical & internal)",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_tmv_service",
+          "label": "TMV service and fail-safe check",
+          "frequency": "annual",
+          "notes": ""
+        },
+        {
+          "id": "a_calorifier_blowdown",
+          "label": "Calorifier blowdown and sample condition report",
+          "frequency": "annual",
+          "notes": ""
+        }
+      ]
+    }
+  ]
+}
